@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Örnek Arama Sitesi</title>
+  <style>
+    /* Genel Stiller */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .search-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .search-container input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .search-container input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search-results {
+      margin: 50px auto;
+      width: 600px;
+      text-align: center;
+      display: none;
+    }
+    .search-results h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .search-results ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .search-results li {
+      margin-bottom: 10px;
+    }
+    .search-results li a {
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .search-results li a:hover {
+      background-color: #e0e0e0;
+    }
+    .no-results {
+      color: red;
+    }
+    footer {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+      color: #fff;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+  <script>
+    var data = [
+      { title: 'Elma Sitesi 1', url: 'http://elmablog.com' },
+      { title: 'Elma Sitesi 2', url: 'http://elmaweb.com' },
+      { title: 'Elma Sitesi 3', url: 'http://elmastore.com' }
+    ];
+
+    function performSearch() {
+      var query = document.getElementById('searchInput').value;
+      var resultsDiv = document.getElementById('searchResults');
+      var noResultsDiv = document.getElementById('noResults');
+      var resultsHTML = '';
+      var found = false;
+
+      if (query.trim() !== '') {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].title.toLowerCase().includes(query.toLowerCase())) {
+            resultsHTML += '<li><a href="' + data[i].url + '">' + data[i].title + '</a></li>';
+            found = true;
+          }
+        }
+
+        if (found) {
+          resultsDiv.innerHTML = '<ul>' + resultsHTML + '</ul>';
+          resultsDiv.style.display = 'block'; // Sonuçları görünür yap
+          noResultsDiv.style.display = 'none'; // Sonuç bulunamadı mesajını gizle
+        } else {
+          resultsDiv.style.display = 'none'; // Sonuçları gizle
+          noResultsDiv.style.display = 'block'; // Sonuç bulunamadı mesajını görünür yap
+        }
+      } else {
+        resultsDiv.innerHTML = ''; // Arama sıfırlandığında sonuçları temizle
+        resultsDiv.style.display = 'none'; // Sonuçları gizle
+        noResultsDiv.style.display = 'none'; // Sonuç bulunamadı mesajını gizle
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Örnek Arama Sitesi</h1>
+  </header>
+
+  <div class="search-container">
+    <form onsubmit="event.preventDefault(); performSearch();">
+      <input type="text" id="searchInput" name="search" placeholder="Ara...">
+      <input type="submit" value="Ara">
+    </form>
+  </div>
+
+  <div id="searchResults" class="search-results">
+    <h2>Arama Sonuçları</h2>
+    <!-- Arama sonuçları burada JavaScript tarafından oluşturulacak -->
+  </div>
+
+  <div id="noResults" class="search-results no-results" style="display: none;">
+    Sonuç Bulunamadı
+  </div>
+
+  <footer>
+    <p>Örnek Arama Sitesi &copy; 2023</p>
+  </footer>
+
+</body>
+</html>
